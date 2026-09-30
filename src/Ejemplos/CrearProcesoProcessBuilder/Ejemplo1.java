@@ -7,7 +7,8 @@ public class Ejemplo1 {
         ProcessBuilder pb = new ProcessBuilder("notepad.exe");
 
         try {
-            pb.start();
+            Process p = pb.start();
+            System.out.println(p.info());
         } catch (IOException e) {
             System.err.println("Error al lanzar el proceso");
         }
