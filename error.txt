@@ -1,0 +1,2 @@
+Error: Could not find or load main class prueba2.Hola
+Caused by: java.lang.NoClassDefFoundError: prueba2/Hola (wrong name: Ejemplos/Prueba2/Hola)
