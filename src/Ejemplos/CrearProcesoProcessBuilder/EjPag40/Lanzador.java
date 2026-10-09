@@ -3,6 +3,7 @@ package Ejemplos.CrearProcesoProcessBuilder.EjPag40;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Lanzador {
 
@@ -13,9 +14,9 @@ public class Lanzador {
         pb= new ProcessBuilder();
         int retorno;
         Process p;
-        String classPath="C:\\Users\\Usuario\\Desktop\\2DAM\\Acceso a Datos - AADD26\\Proyectos\\PSP-26\\src\\Ejemplos";
+        String classPath="C:\\Users\\Usuario\\Desktop\\2DAM\\Acceso a Datos - AADD26\\Proyectos\\PSP-26\\src";
 
-        pb.command("java.exe", "-cp", classPath, "CrearProcesoProcessBuilder.EjPag40.Sumador", num1, num2);
+        pb.command("java.exe", "-cp", classPath, "Ejemplos.CrearProcesoProcessBuilder.EjPag40.Sumador", num1, num2);
 
         try {
             FileWriter fw= new FileWriter(ficheroSalida, true);
@@ -40,24 +41,43 @@ public class Lanzador {
     }
 
     public static void main(String[] args) {
+        String numero1, numero2, fichSalida, fichError;
+        String usuarioContinuar;
+        Scanner sc = new Scanner(System.in);
         int retorno;
-        retorno= lanzarSumador("1", "5", "salida1.txt","error1.txt");
+        boolean continuar = true;
 
-        if (retorno==0)
-            System.out.println("Ha ido bien la ejecución");
-        else System.out.println("Ha ido mal");
+        while(continuar) {
+            System.out.println("Ingrese el número 1: ");
+            numero1 = sc.nextLine();
+            System.out.println("Ingrese el núemro 2: ");
+            numero2 = sc.nextLine();
+            System.out.println("Ingrese el fichero de salida: ");
+            fichSalida = sc.nextLine();
+            System.out.println("Ingrese el fichero de error: ");
+            fichError = sc.nextLine();
 
-        retorno= lanzarSumador("1", "2", "salida2.txt","error2.txt");
-        if (retorno==0)
-            System.out.println("Ha ido bien la ejecución");
-        else System.out.println("Ha ido mal");
+            retorno = lanzarSumador(numero1, numero2, fichSalida,fichError);
+            if (retorno==0)
+                System.out.println("Ha ido bien la ejecución, salida en: " + fichSalida);
+            else System.out.println("Ha ido mal, error en: " + fichError);
 
-        retorno= lanzarSumador("2", "1", "salida3.txt","error3.txt");
-        if (retorno==0)
-            System.out.println("Ha ido bien la ejecución");
-        else System.out.println("Ha ido mal");
+            do {
+                System.out.println("Quieres continuar? s/n");
+                usuarioContinuar = sc.nextLine().toLowerCase();
+
+                if(usuarioContinuar.equals("n")) {
+                    System.out.println("Saliendo...");
+                    continuar = false;
+                } else if (usuarioContinuar.equals("s")) {
+                    System.out.println("Continuando...");
+                } else {
+                    System.err.println("Entrada incorrecta");
+                }
+            } while(!usuarioContinuar.equals("s") && !usuarioContinuar.equals("n"));
+
+        }
+
         System.out.println("Fin de mi programa");
-
     }
-
 }
